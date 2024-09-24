@@ -14,7 +14,6 @@ import uagrm.bo.workflow.repositorio.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UsuarioServicioImpl  implements UsuarioServicio {
@@ -66,18 +65,18 @@ public class UsuarioServicioImpl  implements UsuarioServicio {
         usuarioRepositorio.deleteById(id);
     }
 
-    // Métodos de conversión
-    private UsuarioDTO convertToDTO(Usuario usuario) {
-        UsuarioDTO dto = new UsuarioDTO();
-        dto.setId(usuario.getId());
-        dto.setNombre(usuario.getNombre());
-        dto.setEmail(usuario.getEmail());
-        dto.setNombre(usuario.getNombre());
-        dto.setRoles(usuario.getRoles().stream()
-                .map(Rol::getNombre)
-                .collect(Collectors.toSet()));
-        return dto;
-    }
+//    // Métodos de conversión
+//    private UsuarioDTO convertToDTO(Usuario usuario) {
+//        UsuarioDTO dto = new UsuarioDTO();
+//        dto.setId(usuario.getId());
+//        dto.setNombre(usuario.getNombre());
+//        dto.setEmail(usuario.getEmail());
+//        dto.setNombre(usuario.getNombre());
+//        dto.setRoles(usuario.getRoles().stream()
+//                .map(Rol::getERol())
+//                .collect(Collectors.toSet()));
+//        return dto;
+//    }
 
     private Usuario convertToEntity(UsuarioDTO dto) {
         Usuario usuario = new Usuario();

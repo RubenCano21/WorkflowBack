@@ -56,8 +56,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->{
                     auth.requestMatchers(HttpMethod.GET).permitAll();
-//                    auth.requestMatchers("/accessAdmin").hasAnyRole("ADMIN", "CLIENTE");
-//                    auth.anyRequest().authenticated();
+                    auth.requestMatchers(HttpMethod.GET, "/api/usuarios").permitAll();
+                    auth.requestMatchers(HttpMethod.POST,"/api/usuarios").permitAll();
+                    auth.requestMatchers(HttpMethod.POST,"/api/usuarios/registrar").permitAll();
+                    auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilter(jwtAuthenticationFilter)

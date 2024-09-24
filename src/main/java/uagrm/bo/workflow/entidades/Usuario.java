@@ -1,4 +1,5 @@
 package uagrm.bo.workflow.entidades;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,12 +34,14 @@ public class Usuario {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // solo lectura
     private boolean admin;
 
+    @JsonIgnoreProperties({"users", "handler", "hibernateLazyInitializer"})
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="usuarios_roles",
-            joinColumns = @JoinColumn(
-                    name="usuario_id", referencedColumnName = "id"
-            ), inverseJoinColumns = @JoinColumn(name="rol_id", referencedColumnName = "id")
+            name = "usuario_roles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id", "role_id"})}
     )
     private List<Rol> roles;
+
 }

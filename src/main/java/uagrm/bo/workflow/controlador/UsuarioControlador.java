@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/usarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioControlador {
 
     @Autowired
@@ -48,7 +48,6 @@ public class UsuarioControlador {
    }
 
 
-
     @PostMapping("/registrar")
    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario,
                                              BindingResult result){
@@ -56,8 +55,6 @@ public class UsuarioControlador {
 
         return crearUsuario(usuario, result);
    }
-
-
 
    @DeleteMapping("/{id}")
    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id){
