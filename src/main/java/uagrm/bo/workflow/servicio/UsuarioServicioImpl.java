@@ -4,11 +4,14 @@ package uagrm.bo.workflow.servicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uagrm.bo.workflow.dto.UsuarioDTO;
 import uagrm.bo.workflow.entidades.Rol;
 import uagrm.bo.workflow.entidades.Usuario;
+import uagrm.bo.workflow.repositorio.RolRepositorio;
 import uagrm.bo.workflow.repositorio.UsuarioRepositorio;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,39 +23,42 @@ public class UsuarioServicioImpl  implements UsuarioServicio {
     private UsuarioRepositorio usuarioRepositorio;
 
     @Autowired
+    private RolRepositorio rolRepositorio;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public List<UsuarioDTO> obtenerUsuarios() {
-        return usuarioRepositorio.findAll()
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public List<Usuario> obtenerUsuarios() {
+        return usuarioRepositorio.findAll();
     }
 
-    @Override
-    public Optional<UsuarioDTO> obtenerUsuario(String nombre) {
-        return usuarioRepositorio.findByNombre(nombre)
-                .map(this::convertToDTO);
-    }
 
     @Override
+    @Transactional
     public boolean existeUsuario(String nombre) {
         return usuarioRepositorio.existsByNombre(nombre);
     }
 
     @Override
-    public boolean existeEmail(String email) {
-        return usuarioRepositorio.existsByEmail(email);
-    }
+    @Transactional
+    public Usuario guardarUsuario(Usuario usuario) {
 
-    @Override
-    public UsuarioDTO guardarUsuario(UsuarioDTO usuarioRegistroDTO) {
-        Usuario usuario = convertToEntity(usuarioRegistroDTO);
+        Optional<Rol> optionalRol = rolRepositorio.findByNombre("USER");
+        List<Rol> roles = new ArrayList<>();
+
+        optionalRol.ifPresent(roles::add);
+
+        if (usuario.isAdmin()){
+            Optional<Rol> optionalRolAdmin = rolRepositorio.findByNombre("ADMIN");
+            optionalRolAdmin.ifPresent(roles::add);
+        }
+
+        usuario.setRoles(roles);
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        Usuario guardarUsuario = usuarioRepositorio.save(usuario);
 
-        return convertToDTO(guardarUsuario);
+        return usuarioRepositorio.save(usuario);
     }
 
     @Override

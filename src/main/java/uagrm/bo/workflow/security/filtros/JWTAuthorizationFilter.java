@@ -9,6 +9,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import uagrm.bo.workflow.security.jwt.JWTUtils;
@@ -30,20 +31,33 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        String tokenHeader = request.getHeader("Authorization");
+       try {
+           String tokenHeader = request.getHeader("Authorization");
 
-        if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
-            String token = tokenHeader.substring(7);
-            if (jwtUtils.isValidToken(token)){
-                String nombreUsuario = jwtUtils.getNombreUsuarioFromToken(token);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(nombreUsuario);
+           if (tokenHeader == null || tokenHeader.startsWith("Bearer ")) {
+               filterChain.doFilter(request, response);
+               return;
+           }
 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(nombreUsuario,
-                        null, userDetails.getAuthorities());
+           String token = tokenHeader.substring(7);
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-        }
-        filterChain.doFilter(request, response);
+           if (!jwtUtils.isValidToken(token)){
+               throw new IllegalArgumentException("Token invalido o expirado");
+           }
+
+           String nombreUsuario = jwtUtils.getNombreUsuarioFromToken(token);
+           UserDetails userDetails = userDetailsService.loadUserByUsername(nombreUsuario);
+
+           if (userDetails != null){
+               UsernamePasswordAuthenticationToken authenticationToken =
+                       new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+               SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+           }
+       } catch (IllegalArgumentException | UsernameNotFoundException e) {
+           response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+           response.getWriter().write("Error de autenticacion" + e.getMessage());
+           return;
+       }
+       filterChain.doFilter(request, response);
     }
 }

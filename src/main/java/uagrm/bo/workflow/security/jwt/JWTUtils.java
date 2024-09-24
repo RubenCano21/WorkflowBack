@@ -17,7 +17,7 @@ import java.util.function.Function;
 @Slf4j
 public class JWTUtils {
 
-    @Value("${jwt.sercret.key}")
+    @Value("${jwt.secret.key}")
     private String secretKey;
 
     @Value("${jwt.time.expiration}")
@@ -64,7 +64,7 @@ public class JWTUtils {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignatureKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 

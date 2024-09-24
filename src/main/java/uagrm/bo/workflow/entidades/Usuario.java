@@ -1,14 +1,17 @@
 package uagrm.bo.workflow.entidades;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name ="usuarios")
 public class Usuario {
@@ -26,12 +29,16 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // solo lectura
+    private boolean admin;
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="usuarios_roles",
             joinColumns = @JoinColumn(
                     name="usuario_id", referencedColumnName = "id"
             ), inverseJoinColumns = @JoinColumn(name="rol_id", referencedColumnName = "id")
     )
-    private Collection<Rol> roles;
+    private List<Rol> roles;
 }
