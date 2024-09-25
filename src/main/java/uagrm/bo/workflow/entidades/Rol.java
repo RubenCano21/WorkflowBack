@@ -18,13 +18,16 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String nombre;
 
-//    @Enumerated(EnumType.STRING)
-//    private ERol eRol;
+    @Column(name = "e_rol", nullable = false, unique = true)
+    @Enumerated(EnumType.STRING)
+    private ERol eRol;
 
     @JsonIgnoreProperties({"roles",  "handler", "hibernateLazyInitializer"})
     @ManyToMany(mappedBy = "roles")
     private List<Usuario> usuarios;
+
+    public Rol(ERol eRol){
+        this.eRol = eRol;
+    }
 }

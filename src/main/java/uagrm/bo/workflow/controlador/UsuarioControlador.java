@@ -3,10 +3,10 @@ package uagrm.bo.workflow.controlador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import uagrm.bo.workflow.dto.UsuarioDTO;
+import uagrm.bo.workflow.entidades.ERol;
+import uagrm.bo.workflow.entidades.Rol;
 import uagrm.bo.workflow.entidades.Usuario;
 import uagrm.bo.workflow.servicio.UsuarioServicio;
 
@@ -18,21 +18,14 @@ import java.util.Map;
 @RequestMapping("/api/usuarios")
 public class UsuarioControlador {
 
-    @Autowired
-    private UsuarioServicio usuarioServicio;
+    private final UsuarioServicio usuarioServicio;
 
-
-    @ModelAttribute("/usuario")
-    public UsuarioDTO retornarNuevoUsuarioRegistroDtTO(){
-        return new UsuarioDTO();
+    public UsuarioControlador(UsuarioServicio usuarioServicio) {
+        this.usuarioServicio = usuarioServicio;
     }
 
-//    @GetMapping()
-//    public String mostrarFormularioDeRegistro(){
-//        return "registro";
-//    }
 
-   @GetMapping
+    @GetMapping
     public List<Usuario> mostrarListaDeUsuarios(){
         return usuarioServicio.obtenerUsuarios();
    }
@@ -51,7 +44,13 @@ public class UsuarioControlador {
     @PostMapping("/registrar")
    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario,
                                              BindingResult result){
-        usuario.setAdmin(false);
+        if (result.hasErrors()){
+            return validation(result);
+        }
+
+        if (usuario.getRoles().stream().noneMatch(rol -> rol.getERol() == ERol.ADMIN)){
+            usuario.getRoles().add(new Rol(ERol.CLIENTE));
+        }
 
         return crearUsuario(usuario, result);
    }

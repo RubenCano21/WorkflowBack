@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uagrm.bo.workflow.dto.UsuarioDTO;
+import uagrm.bo.workflow.entidades.ERol;
 import uagrm.bo.workflow.entidades.Rol;
 import uagrm.bo.workflow.entidades.Usuario;
 import uagrm.bo.workflow.repositorio.RolRepositorio;
@@ -36,31 +36,46 @@ public class UsuarioServicioImpl  implements UsuarioServicio {
 
     @Override
     @Transactional
-    public boolean existeUsuario(String nombre) {
-        return usuarioRepositorio.existsByNombre(nombre);
-    }
+    public Usuario guardarUsuario(@org.jetbrains.annotations.NotNull Usuario usuario) {
 
-    @Override
-    @Transactional
-    public Usuario guardarUsuario(Usuario usuario) {
+        if (usuario.getRoles() == null || usuario.getRoles().isEmpty()) {
+            Rol clienteRol = rolRepositorio.findByERol(ERol.CLIENTE)
+                    .orElseThrow(() -> new RuntimeException("Rol CLIENTE no encontrado"));
+            usuario.setRoles(List.of(clienteRol));
+        }
 
-        Optional<Rol> optionalRol = rolRepositorio.findByNombre("USER");
         List<Rol> roles = new ArrayList<>();
 
-        optionalRol.ifPresent(roles::add);
 
         if (usuario.isAdmin()){
-            Optional<Rol> optionalRolAdmin = rolRepositorio.findByNombre("ADMIN");
+            Optional<Rol> optionalRolAdmin = rolRepositorio.findByERol(ERol.ADMIN);
             optionalRolAdmin.ifPresent(roles::add);
+
+            Optional<Rol> optionalRolRecepcionista = rolRepositorio.findByERol(ERol.RECEPCIONISTA);
+            optionalRolRecepcionista.ifPresent(roles::add);
+
+        } else if (usuario.isRecepcionista()) {
+            Optional<Rol> optionalRolRecepcionista = rolRepositorio.findByERol(ERol.RECEPCIONISTA);
+            optionalRolRecepcionista.ifPresent(roles::add);
         }
+
 
         usuario.setRoles(roles);
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        usuario.setNombre(usuario.getNombre());
 
         return usuarioRepositorio.save(usuario);
     }
 
     @Override
+    @Transactional
+    public Usuario findByEmail(String email) {
+        return usuarioRepositorio.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
+    @Override
+    @Transactional
     public void eliminarUsuario(Long id) {
         usuarioRepositorio.deleteById(id);
     }
@@ -78,13 +93,13 @@ public class UsuarioServicioImpl  implements UsuarioServicio {
 //        return dto;
 //    }
 
-    private Usuario convertToEntity(UsuarioDTO dto) {
-        Usuario usuario = new Usuario();
-        usuario.setId(dto.getId());
-        usuario.setNombre(dto.getNombre());
-        usuario.setEmail(dto.getEmail());
-        usuario.setNombre(dto.getNombre());
-        // Los roles pueden ser asignados en otra parte si lo deseas
-        return usuario;
-    }
+//    private Usuario convertToEntity(UsuarioDTO dto) {
+//        Usuario usuario = new Usuario();
+//        usuario.setId(dto.getId());
+//        usuario.setNombre(dto.getNombre());
+//        usuario.setEmail(dto.getEmail());
+//        usuario.setNombre(dto.getNombre());
+//        // Los roles pueden ser asignados en otra parte si lo deseas
+//        return usuario;
+//    }
 }

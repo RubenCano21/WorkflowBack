@@ -23,8 +23,8 @@ public class RecepcionistaServicioImpl {
         return repositorio.findAll();
     }
 
-    public Recepcionista guardarRecepcionista(Recepcionista recepcionista){
-        return repositorio.save(recepcionista);
+    public void guardarRecepcionista(Recepcionista recepcionista){
+        repositorio.save(recepcionista);
     }
 
     public Recepcionista obtenerRecepcionistaPorId(Long id){

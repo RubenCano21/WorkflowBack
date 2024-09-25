@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uagrm.bo.workflow.entidades.Usuario;
 import uagrm.bo.workflow.repositorio.UsuarioRepositorio;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UsuarioRepositorio usuarioRepo;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Usuario usuario = usuarioRepo.findByNombre(username)
@@ -30,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         List<GrantedAuthority> authorities = usuario.getRoles()
                 .stream()
-                .map(roles -> new SimpleGrantedAuthority(roles.getNombre()))
+                .map(roles -> new SimpleGrantedAuthority(roles.getERol().name()))
                 .collect(Collectors.toList());
 
         return new User(
