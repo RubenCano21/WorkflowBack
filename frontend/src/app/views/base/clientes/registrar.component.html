@@ -1,0 +1,37 @@
+<!--tabla de prueba-->
+<c-row class="my-5">
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header class="bg-primary text-white"> Lista de Clientes</c-card-header>
+      <c-card-body>
+        <table
+          [hover]="true"
+          [responsive]="true"
+          [striped]="true"
+          align="middle"
+          cTable
+          class="mb-0 border"
+        >
+          <thead class="text-nowrap text-truncate">
+          <tr>
+            <th class="bg-body-tertiary text-center ">ID</th>
+            <th class="bg-body-tertiary">Username</th>
+            <th class="bg-body-tertiary text-center">Password</th>
+            <th class="bg-body-tertiary">Admin</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (cliente of clientes; track $index) {
+              <tr>
+                <td class="text-center">{{ cliente.id}}</td>
+                <td class="text-center">{{ cliente.username}}</td>
+                <td class="text-center">{{ cliente.password}}</td>
+                <td class="text-center">{{ cliente.admin}}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

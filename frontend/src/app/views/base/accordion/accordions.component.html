@@ -1,0 +1,44 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Angular Accordion</strong> flush
+      </c-card-header>
+      <c-card-body>
+        <p class="text-body-secondary small">
+          Add <code>flush</code> to remove the default <code>background-color</code>, some
+          borders, and some rounded corners to render accordions edge-to-edge with their parent
+          container.
+        </p>
+        <app-docs-example href="components/accordion#flush">
+          <c-accordion [flush]="true">
+            <c-accordion-item visible>
+              <ng-template cTemplateId="accordionHeader">
+                Accordion item #0
+              </ng-template>
+              <ng-template cTemplateId="accordionBody">
+                <span [innerHTML]="getAccordionBodyText('first')"></span>
+              </ng-template>
+            </c-accordion-item>
+            <c-accordion-item [visible]="false">
+              <ng-template cTemplateId="accordionHeader">
+                Accordion item #1
+              </ng-template>
+              <ng-template cTemplateId="accordionBody">
+                <span [innerHTML]="getAccordionBodyText('second')"></span>
+              </ng-template>
+            </c-accordion-item>
+            <c-accordion-item [visible]="false">
+              <ng-template cTemplateId="accordionHeader">
+                Accordion item #2
+              </ng-template>
+              <ng-template cTemplateId="accordionBody">
+                <span [innerHTML]="getAccordionBodyText('third')"></span>
+              </ng-template>
+            </c-accordion-item>
+          </c-accordion>
+        </app-docs-example>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

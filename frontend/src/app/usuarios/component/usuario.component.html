@@ -1,0 +1,24 @@
+@if (usuarios.length > 0) {
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre Completo</th>
+        <th scope="col">Email</th>
+        <th scope="col">Rol</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (usuario of usuarios; track $index){
+        <tr>
+          <td>{{usuario.id}}</td>
+          <td>{{usuario.username}}</td>
+          <td>{{usuario.password}}</td>
+          <td>{{usuario.admin}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <div>Lo sentimos no hay registros en el sistema</div>
+}

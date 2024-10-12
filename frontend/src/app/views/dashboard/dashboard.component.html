@@ -1,0 +1,116 @@
+
+<app-widgets-dropdown />
+<c-col class="my-4" xs="12">
+  <c-card class="mb-4">
+    <c-card-header>
+      <strong>Angular Carousel</strong> <small> Me Sirve</small>
+    </c-card-header>
+    <c-card-body>
+      <p class="text-body-secondary small">
+        Adding in the previous and next controls with <code>c-carousel-controls</code> component.
+      </p>
+      <app-docs-example href="components/carousel/#with-controls">
+        <c-carousel (itemChange)="onItemChange($event)" [interval]="0">
+          <c-carousel-inner>
+            @for (slide of slides[0]; track slide.src) {
+              <c-carousel-item>
+                <img
+                  [src]="slide.src"
+                  alt="{{slide.title}}"
+                  class="d-block w-100"
+                  loading="lazy"
+                />
+              </c-carousel-item>
+            }
+          </c-carousel-inner>
+          <c-carousel-control caption="Previous" direction="prev" i18n-caption></c-carousel-control>
+          <c-carousel-control caption="Next" direction="next" i18n-caption></c-carousel-control>
+        </c-carousel>
+      </app-docs-example>
+    </c-card-body>
+  </c-card>
+</c-col>
+
+
+<app-widgets-brand [withCharts]="true" />
+
+<c-row class="mt-4">
+  <c-col xs>
+
+  </c-col>
+</c-row>
+<c-row>
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-body>
+        <table
+          [hover]="true"
+          [responsive]="true"
+          [striped]="true"
+          align="middle"
+          cTable
+          class="mb-0 border"
+        >
+          <thead class="text-nowrap text-truncate">
+          <tr>
+            <th class="bg-body-tertiary text-center ">
+              <svg cIcon name="cilPeople"></svg>
+            </th>
+            <th class="bg-body-tertiary">User</th>
+            <th class="bg-body-tertiary text-center">Country</th>
+            <th class="bg-body-tertiary">Usage</th>
+            <th class="bg-body-tertiary text-center">Payment Method</th>
+            <th class="bg-body-tertiary">Activity</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (user of users; track user.name; let i = $index) {
+              <tr>
+                <td class="text-center">
+                  <c-avatar [size]="'md'" src="{{ user.avatar }}" status="{{ user.status }}" />
+                </td>
+                <td>
+                  <div>{{ user.name }}</div>
+                  <div class="small text-body-secondary text-nowrap">
+                  <span>
+                    {{ user.state }} | Registered: {{ user.registered }}
+                  </span>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <svg
+                    cIcon
+                    id="{{ user.country + user.name }}"
+                    name="cif{{ user.country }}"
+                    size="xl"
+                    title="{{ user.country }}"
+                  ></svg>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-between">
+                    <div class="float-start">
+                      <strong>{{ user.usage }}%</strong>
+                    </div>
+                    <div class="float-end ms-1 text-nowrap">
+                      <small class="text-body-secondary">
+                        {{ user.period }}
+                      </small>
+                    </div>
+                  </div>
+                  <c-progress thin [value]="user.usage" color="{{ user.color }}" aria-label="Usage" />
+                </td>
+                <td class="text-center">
+                  <svg cIcon name="cibCc{{ user.payment }}" size="xl"></svg>
+                </td>
+                <td>
+                  <div class="small text-body-secondary">Last login</div>
+                  <div class="fw-semibold text-nowrap">{{ user.activity }}</div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

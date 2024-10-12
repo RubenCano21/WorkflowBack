@@ -1,0 +1,56 @@
+<c-card class="" >
+  <c-card-header class="bg-primary text-white">Registrar Clientes</c-card-header>
+  <c-card-body>
+  <form (ngSubmit)="onSubmit()" cForm class="row g-3">
+    <c-col [md]="4">
+      <label cLabel for="inputPassword6" class="fw-medium">Cédula de Identidad</label>
+      <input cFormControl id="inputPassword6" type="number" placeholder="id" />
+    </c-col>
+    <c-col [md]="4">
+      <label cLabel for="inputEmail5" class="fw-medium">Nombre</label>
+      <input cFormControl id="inputEmail5" type="text"  placeholder="username"/>
+    </c-col>
+    <c-col [md]="4">
+      <label cLabel for="inputPassword5" class="fw-medium">Apellidos</label>
+      <input cFormControl id="inputPassword5" type="text"  placeholder="password"/>
+    </c-col>
+    <c-col [md]="6">
+      <label cLabel for="inputEmail4" class="fw-medium">Email</label>
+      <input cFormControl id="inputEmail4" type="text"  placeholder="admin"/>
+    </c-col>
+    <c-col [md]="6">
+      <label cLabel for="inputPassword4" class="fw-medium">Teléfono</label>
+      <input cFormControl id="inputPassword4" type="number" disabled/>
+    </c-col>
+    <c-col [xs]="12">
+      <label cLabel for="inputAddress" class="fw-medium">Dirección</label>
+      <input cFormControl id="inputAddress" placeholder="Av. San Martin" disabled/>
+    </c-col>
+    <c-col [xs]="12">
+      <label cLabel for="inputAddress2" class="fw-medium">Address 2</label>
+      <input cFormControl id="inputAddress2" placeholder="Apartment, studio, or floor" disabled/>
+    </c-col>
+    <c-col [md]="6">
+      <label cLabel for="inputCity" class="fw-medium">Ciudad</label>
+      <input cFormControl id="inputCity" disabled/>
+    </c-col>
+    <c-col [md]="4">
+      <label cLabel for="inputState" class="fw-medium">Rol</label>
+      <select cSelect id="inputState" disabled>
+        <option>Seleccionar</option>
+        <option>ADMIN</option>
+        <option>CLIENTE</option>
+      </select>
+    </c-col>
+    <c-col [md]="2">
+      <label cLabel for="inputZip" class="fw-medium">Zip</label>
+      <input cFormControl id="inputZip" disabled/>
+    </c-col>
+    <c-col [xs]="12">
+      <button cButton type="submit" class="fw-medium">Registrar</button>
+    </c-col>
+  </form>
+  </c-card-body>
+</c-card>
+
+

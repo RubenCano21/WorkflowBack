@@ -1,0 +1,231 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Angular Table</strong> <small>Basic example</small>
+      </c-card-header>
+      <c-card-body>
+        <p class="text-body-secondary small">
+          Using the most basic table CoreUI, here&#39;s how <code>cTable</code>-based
+          tables look in CoreUI.
+        </p>
+        <app-docs-example href="components/table">
+          <table cTable>
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Class</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>&#64;mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>&#64;fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colSpan="2">Larry the Bird</td>
+              <td>&#64;twitter</td>
+            </tr>
+            </tbody>
+          </table>
+        </app-docs-example>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Angular Table</strong> <small>Striped rows</small>
+      </c-card-header>
+      <c-card-body>
+        <p class="text-body-secondary small">
+          Use <code>striped</code> property to add zebra-striping to any table row within the <code>&lt;tbody&gt;</code>.
+        </p>
+        <app-docs-example href="components/table#striped-rows">
+          <table [striped]="true" cTable>
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Class</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>&#64;mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>&#64;fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colSpan="2">Larry the Bird</td>
+              <td>&#64;twitter</td>
+            </tr>
+            </tbody>
+          </table>
+        </app-docs-example>
+        <p class="text-body-secondary small">
+          These classes can also be added to table variants:
+        </p>
+        <app-docs-example href="components/table#striped-rows">
+          <table [striped]="true" cTable color="dark">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Class</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>&#64;mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>&#64;fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colSpan="2">Larry the Bird</td>
+              <td>&#64;twitter</td>
+            </tr>
+            </tbody>
+          </table>
+        </app-docs-example>
+        <app-docs-example href="components/table#striped-rows">
+          <table [striped]="true" cTable color="success">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Class</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>&#64;mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>&#64;fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colSpan="2">Larry the Bird</td>
+              <td>&#64;twitter</td>
+            </tr>
+            </tbody>
+          </table>
+        </app-docs-example>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Angular Table</strong> <small>Table head</small>
+      </c-card-header>
+      <c-card-body>
+        <p class="text-body-secondary small">
+          Similar to tables and dark tables, use the modifier prop
+          <code>color=&#34;light&#34;</code> or <code>color=&#34;dark&#34;</code> to make
+          <code>&lt;thead&gt;</code>s appear light or dark gray.
+        </p>
+        <app-docs-example href="components/table#table-head">
+          <table cTable>
+            <thead cTableColor="light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Class</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>&#64;mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>&#64;fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>&#64;twitter</td>
+            </tr>
+            </tbody>
+          </table>
+        </app-docs-example>
+        <app-docs-example href="components/table#table-head">
+          <table cTable>
+            <thead cTableColor="dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Class</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Heading</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>&#64;mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>&#64;fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colSpan="2">Larry the Bird</td>
+              <td>&#64;twitter</td>
+            </tr>
+            </tbody>
+          </table>
+        </app-docs-example>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
