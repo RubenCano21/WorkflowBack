@@ -21,14 +21,14 @@ export const routes: Routes = [
       },
       {
         path: 'register',
-        loadComponent: () => import('./clientes/cliente.component').then(m => m.ClienteComponent),
+        loadComponent: () => import('./clientes/formCliente.component').then(m => m.FormClienteComponent),
         data: {
           title: 'Clientes'
         }
       },
       {
         path: 'lista',
-        loadComponent: () => import('./clientes/registrar.component').then(m => m.RegistrarComponent),
+        loadComponent: () => import('./clientes/cliente.component').then(m => m.ClienteComponent),
         data: {
           title: 'Clientes'
         }
@@ -41,24 +41,10 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'carousel',
-        loadComponent: () => import('./carousels/carousels.component').then(m => m.CarouselsComponent),
-        data: {
-          title: 'Carousel'
-        }
-      },
-      {
         path: 'list-group',
         loadComponent: () => import('./list-groups/list-groups.component').then(m => m.ListGroupsComponent),
         data: {
           title: 'List Group'
-        }
-      },
-      {
-        path: 'navs',
-        loadComponent: () => import('./navs/navs.component').then(m => m.NavsComponent),
-        data: {
-          title: 'Navs & Tabs'
         }
       },
       {
@@ -73,13 +59,6 @@ export const routes: Routes = [
         loadComponent: () => import('./placeholders/placeholders.component').then(m => m.PlaceholdersComponent),
         data: {
           title: 'Placeholder'
-        }
-      },
-      {
-        path: 'popovers',
-        loadComponent: () => import('./popovers/popovers.component').then(m => m.PopoversComponent),
-        data: {
-          title: 'Popovers'
         }
       },
       {

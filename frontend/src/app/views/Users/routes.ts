@@ -14,7 +14,7 @@ export const routes: Routes = [
       },
       // {
       //   path: 'lista',
-      //   loadComponent: () => import('../base/clientes/usuarios.component').then(m => m.RegistrarComponent),
+      //   loadComponent: () => import('../base/clientes/usuarios.component').then(m => m.ClienteComponent),
       //   data: {
       //     title: 'usuarios'
       //   }
@@ -28,7 +28,7 @@ export const routes: Routes = [
       },
       // {
       //   path: 'clientes',
-      //   loadComponent: () => import('./clientes/cliente.component').then(m => m.ClienteComponent),
+      //   loadComponent: () => import('./clientes/cliente.component').then(m => m.FormClienteComponent),
       //   data: {
       //     title: 'clientes'
       //   }

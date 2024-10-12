@@ -63,11 +63,11 @@ export const navItems: INavData[] = [
         url: '/base/cards',
         icon: 'nav-icon-bullet'
       },
-      {
-        name: 'Carousel',
-        url: '/base/carousel',
-        icon: 'nav-icon-bullet'
-      },
+      // {
+      //   name: 'Carousel',
+      //   url: '/base/carousel',
+      //   icon: 'nav-icon-bullet'
+      // },
       // {
       //   name: 'Collapse',
       //   url: '/base/collapse',
@@ -78,11 +78,11 @@ export const navItems: INavData[] = [
         url: '/base/list-group',
         icon: 'nav-icon-bullet'
       },
-      {
-        name: 'Navs & Tabs',
-        url: '/base/navs',
-        icon: 'nav-icon-bullet'
-      },
+      // {
+      //   name: 'Navs & Tabs',
+      //   url: '/base/navs',
+      //   icon: 'nav-icon-bullet'
+      // },
       {
         name: 'Pagination',
         url: '/base/pagination',
@@ -93,21 +93,6 @@ export const navItems: INavData[] = [
         url: '/base/placeholder',
         icon: 'nav-icon-bullet'
       },
-      {
-        name: 'Popovers',
-        url: '/base/popovers',
-        icon: 'nav-icon-bullet'
-      },
-      // {
-      //   name: 'Progress',
-      //   url: '/base/progress',
-      //   icon: 'nav-icon-bullet'
-      // },
-      // {
-      //   name: 'Spinners',
-      //   url: '/base/spinners',
-      //   icon: 'nav-icon-bullet'
-      // },
       {
         name: 'Tables',
         url: '/base/tables',
@@ -194,11 +179,6 @@ export const navItems: INavData[] = [
         }
       },
       {
-        name: 'CoreUI Flags',
-        url: '/icons/flags',
-        icon: 'nav-icon-bullet'
-      },
-      {
         name: 'CoreUI Brands',
         url: '/icons/brands',
         icon: 'nav-icon-bullet'
@@ -214,17 +194,7 @@ export const navItems: INavData[] = [
         name: 'Alerts',
         url: '/notifications/alerts',
         icon: 'nav-icon-bullet'
-      },
-      {
-        name: 'Badges',
-        url: '/notifications/badges',
-        icon: 'nav-icon-bullet'
-      },
-      {
-        name: 'Modal',
-        url: '/notifications/modal',
-        icon: 'nav-icon-bullet'
-      },
+      }
     ]
   },
   {
@@ -266,16 +236,6 @@ export const navItems: INavData[] = [
         icon: 'nav-icon-bullet'
       }
     ]
-  },
-  {
-    title: true,
-    name: 'Links',
-    class: 'mt-auto'
-  },
-  {
-    name: 'Docs',
-    //url: 'https://coreui.io/angular/docs/5.x/',
-    iconComponent: { name: 'cil-description' },
-    attributes: { target: '_blank' }
   }
+
 ];

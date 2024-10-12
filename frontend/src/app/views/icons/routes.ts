@@ -25,13 +25,6 @@ export const routes: Routes = [
         data: {
           title: 'Brands'
         }
-      },
-      {
-        path: 'flags',
-        loadComponent: () => import('./coreui-icons.component').then(m => m.CoreUIIconsComponent),
-        data: {
-          title: 'Flags'
-        }
       }
     ]
   }

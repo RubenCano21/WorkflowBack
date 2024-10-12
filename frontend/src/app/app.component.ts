@@ -8,7 +8,7 @@ import { ColorModeService } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from './icons/icon-subset';
 import {UsuarioComponent} from "./usuarios/component/usuario.component";
-import {ClienteComponent} from "./views/base/clientes/cliente.component";
+import {FormClienteComponent} from "./views/base/clientes/formCliente.component";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ import {ClienteComponent} from "./views/base/clientes/cliente.component";
   imports: [
     RouterOutlet,
     UsuarioComponent,
-    ClienteComponent
+    FormClienteComponent
   ]
 })
 export class AppComponent implements OnInit {

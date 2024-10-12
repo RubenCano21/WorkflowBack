@@ -24,6 +24,10 @@ export class ClienteService {
     return of(this.clientes);
   }
 
+  setCliente(cliente: any){
+    this.clientes.push(cliente);
+  }
+
   // getClientes(): Observable<any> {
   //   return this.http.get(`${this.url}/clientes`);
   // }

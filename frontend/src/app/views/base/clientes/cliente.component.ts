@@ -1,72 +1,76 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { AfterViewInit, Component, HostBinding, Input, OnInit, forwardRef } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { DocsExampleComponent } from '@docs-components/public-api';
+
 import {
-  AvatarComponent,
-  BreadcrumbComponent,
-  BreadcrumbItemComponent,
-  BreadcrumbRouterComponent, ButtonDirective,
-  CardBodyComponent,
-  CardComponent,
-  CardHeaderComponent,
-  ColComponent,
-  FormCheckComponent,
-  FormCheckInputDirective, FormCheckLabelDirective,
-  FormControlDirective,
-  FormDirective,
-  FormLabelDirective,
-  FormSelectDirective, ProgressComponent,
-  RowComponent, TableDirective,
-  TextColorDirective
+    TextColorDirective,
+    CardComponent,
+    CardHeaderComponent,
+    CardBodyComponent,
+    RowComponent,
+    ColComponent,
+    AvatarComponent, ProgressComponent, TableDirective
 } from '@coreui/angular';
-import {ClienteService} from "./cliente.service";
-import {Cliente} from "./cliente";
 import {IconDirective} from "@coreui/icons-angular";
-import {FormsModule} from "@angular/forms";
+import {DashboardComponent} from "../../dashboard/dashboard.component";
+import {Cliente} from "./cliente";
+import {ClienteService} from "./cliente.service";
+import {FormClienteComponent} from "./formCliente.component";
 
 @Component({
-  templateUrl: './cliente.component.html',
-  standalone: true,
-  imports: [RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent,
-    CardBodyComponent, DocsExampleComponent, BreadcrumbComponent, BreadcrumbItemComponent, NgClass,
-    BreadcrumbRouterComponent, FormDirective, FormLabelDirective, FormControlDirective, FormSelectDirective,
-    FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective, ButtonDirective, AvatarComponent, IconDirective, ProgressComponent, TableDirective, FormsModule]
+    selector: 'app-cliente',
+    templateUrl: 'cliente.component.html',
+    standalone: true,
+    imports: [TextColorDirective, CardComponent,  DashboardComponent,
+      CardHeaderComponent, CardBodyComponent, RowComponent, forwardRef(() => ThemeColorComponent),
+      AvatarComponent, ColComponent, IconDirective, ProgressComponent, TableDirective, FormClienteComponent]
 })
-export class ClienteComponent implements OnInit {
-  public items = <any>[];
+export class ClienteComponent implements OnInit, AfterViewInit {
 
-  users: any;
   clientes: Cliente[] = [];
 
-  constructor( private clienteService: ClienteService) {}
+  constructor(private clienteService: ClienteService  ) {
+  }
+
 
   ngOnInit(): void {
-
     this.clienteService.findAll().subscribe(clientes => this.clientes = clientes);
-
-    this.items = [
-      { label: 'Home', url: '/', attributes: { title: 'Clientes' } },
-      { label: 'Library', url: '/' },
-      { label: 'Data', url: '/dashboard/' },
-      { label: 'CoreUI', url: '/' }
-    ];
-
-    setTimeout(() => {
-      this.items = [
-        { label: 'CoreUI', url: '/' },
-        { label: 'Data', url: '/dashboard/' },
-        { label: 'Library', url: '/' },
-        { label: 'Home', url: '/', attributes: { title: 'Home' } }
-      ];
-    }, 5000);
-   // this.loadClientes();
+    //this.clientes = this.clienteService.setCliente()
   }
 
-  @Output() newClienteEvent = new EventEmitter();
-
-  onSubmit(): void {
-    this.newClienteEvent.emit(this.clientes);
-    console.log(this.clientes);
+  addCliente(cliente: Cliente) {
+    cliente.id = new Date().getTime();
+    this.clientes.push(cliente);
   }
 
+  ngAfterViewInit(): void {
+    //this.themeColors();
+  }
 }
+
+@Component({
+    selector: 'app-theme-color',
+    template: `
+    <c-col xl="2" md="4" sm="6" xs="12" class="my-4 ms-4">
+      <div [ngClass]="colorClasses" style="padding-top: 75%;"></div>
+      <ng-content></ng-content>
+    </c-col>
+  `,
+    standalone: true,
+    imports: [ColComponent, NgClass],
+})
+export class ThemeColorComponent implements OnInit {
+  @Input() color = '';
+  public colorClasses = {
+    'theme-color w-75 rounded mb-3': true
+  };
+
+  @HostBinding('style.display') display = 'contents';
+
+  ngOnInit(): void {
+    this.colorClasses = {
+      ...this.colorClasses,
+      [`bg-${this.color}`]: !!this.color
+    };
+  }
+}
+
